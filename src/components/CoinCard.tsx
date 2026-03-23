@@ -25,7 +25,7 @@ export const CoinCard = ({ coin }: CoinCardProps) => {
       </div>
 
       <p className="text-2xl font-mono font-bold">
-        ${coin.current_price.toLocaleString()}
+        {coin.current_price.toLocaleString()}€
       </p>
 
       <div

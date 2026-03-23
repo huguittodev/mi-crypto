@@ -9,7 +9,7 @@ export const getTopCoins = async ({
 }): Promise<CryptoList> => {
   try {
     const response = await fetch(
-      `${BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${numCryptos}&page=1&sparkline=false`,
+      `${BASE_URL}/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=${numCryptos}&page=1&sparkline=false`,
     );
 
     if (response.status === 429) throw new Error("LIMITE_EXCEDIDO");

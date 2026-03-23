@@ -50,10 +50,11 @@ function App() {
             Ver Criptos
           </button>
         </form>
+
         {errorMsg && (
-          <h1 className="bg-red-500/20 text-white p-2 rounded-md mb-6 text-center w-6/12">
+          <span className="bg-red-500/20 text-white p-2 rounded-md mb-6 text-center w-6/12">
             {errorMsg}
-          </h1>
+          </span>
         )}
       </div>
 
