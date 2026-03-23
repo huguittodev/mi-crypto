@@ -5,14 +5,18 @@ import { CoinCard } from "./components/CoinCard";
 
 function App() {
   const [coins, setCoins] = useState<CryptoList>([]);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // Cambiamos a false para que no salga el spinner antes de buscar
   const [loading, setLoading] = useState(false);
+
   const [value, setValue] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMsg(null); // Limpiamos errores anteriores
 
+    // Validamos el input antes de hacer la petición
     const num = parseInt(value);
     if (isNaN(num) || num <= 0) return alert("Introduce un número válido");
 
@@ -22,28 +26,36 @@ function App() {
         setCoins(data);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => setErrorMsg(err.message)) // Capturamos el error para mostrarlo en la UI
+      .finally(() => setLoading(false));
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-8">
+    <main className="min-h-screen bg-slate-900 text-white p-8">
       <h1 className="text-4xl font-bold text-center mb-8">Crypto Monitor</h1>
 
-      <form onSubmit={handleSubmit} className="flex justify-center mb-12">
-        <input
-          type="number"
-          placeholder="Ej: 10"
-          className="focus:outline-none bg-slate-800 text-white p-3 rounded-l-lg border border-slate-600 focus:border-cyan-500 w-64"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 rounded-r-lg font-bold transition-all shadow-lg shadow-cyan-500/20"
-        >
-          Ver Criptos
-        </button>
-      </form>
+      <div className="flex flex-col items-center">
+        <form onSubmit={handleSubmit} className="flex justify-center mb-12">
+          <input
+            type="number"
+            placeholder="Ej: 10"
+            className="focus:outline-none bg-slate-800 text-white p-3 rounded-l-lg border border-slate-600 focus:border-cyan-500 w-64"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 rounded-r-lg font-bold transition-all shadow-lg shadow-cyan-500/20"
+          >
+            Ver Criptos
+          </button>
+        </form>
+        {errorMsg && (
+          <h1 className="bg-red-500/20 text-white p-2 rounded-md mb-6 text-center w-6/12">
+            {errorMsg}
+          </h1>
+        )}
+      </div>
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
@@ -62,7 +74,7 @@ function App() {
           Escribe un número para empezar a monitorizar...
         </p>
       )}
-    </div>
+    </main>
   );
 }
 
