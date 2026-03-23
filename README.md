@@ -60,3 +60,7 @@ src/
  ├── main.tsx         # Punto de entrada de la aplicación
  └── index.css        # Directivas globales de Tailwind CSS
 ```
+
+# 🪙 Crypto Pulse Live
+
+> 🚀 **Demo en vivo:** [https://mi-crypto.vercel.app/]
